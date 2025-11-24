@@ -1,10 +1,13 @@
 const std = @import("std");
-const WebView = @import("webview").WebView;
+const webui = @import("webui");
 
 pub fn main() !void {
-    const w = WebView.create(false, null);
-    try w.setTitle("Basic Example");
-    try w.setHtml("Thanks for using webview!");
-    try w.run();
-    try w.destroy();
+    // create a new window
+    var nwin = webui.newWindow();
+
+    // show the content
+    try nwin.show("<html><head><script src=\"/webui.js\"></script></head> Hello World ! </html>");
+
+    // wait the window exit
+    webui.wait();
 }

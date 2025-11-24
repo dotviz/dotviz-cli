@@ -154,10 +154,13 @@ pub fn build(b: *std.Build) void {
     // Lastly, the Zig build system is relatively simple and self-contained,
     // and reading its source code will allow you to master it.
 
-    const webview = b.dependency("webview", .{
+    const zig_webui = b.dependency("zig_webui", .{
         .target = target,
         .optimize = optimize,
+        .enable_tls = false, // whether enable tls support
+        .is_static = true, // whether static link
     });
-    exe.root_module.addImport("webview", webview.module("webview"));
-    exe.linkLibrary(webview.artifact("webviewStatic"));
+
+    // add module
+    exe.root_module.addImport("webui", zig_webui.module("webui"));
 }
