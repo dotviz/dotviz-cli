@@ -1,10 +1,13 @@
 const std = @import("std");
 const dotviz_cli = @import("dotviz_cli");
+const WebView = @import("webview").WebView;
 
 pub fn main() !void {
-    // Prints to stderr, ignoring potential errors.
-    std.debug.print("All your {s} are belong to us.\n", .{"codebase"});
-    try dotviz_cli.bufferedPrint();
+    const w = WebView.create(false, null);
+    try w.setTitle("Basic Example");
+    try w.setHtml("Thanks for using webview!");
+    try w.run();
+    try w.destroy();
 }
 
 test "simple test" {
